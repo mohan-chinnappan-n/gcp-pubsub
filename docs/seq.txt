@@ -1,0 +1,9 @@
+Title: COVID-19 Response
+User->HomePage:Lands
+User->Steps:Answers Questions and determine next step(s)
+Steps->Submit:Determine Case is neeed
+Submit->Kafka/pubsub:Enqueue to Case data
+CaseSub->Kafka/pubsub: Subscribe
+CaseSub->SF:Create Case
+Note right of SF: New Case Created
+
