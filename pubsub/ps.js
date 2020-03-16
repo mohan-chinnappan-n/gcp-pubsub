@@ -3,9 +3,10 @@
 // code to create case
 async function createCase(subject, at, priority) {
     const sobj = 'Case';
+    // TODO: change the url as required
     const url = `https://mohansun-fsc-21.my.salesforce.com/services/data/v46.0/sobjects/${sobj}`;
-   
 
+    // TODO: design the fields needed for the case creation and get it a part of the message data
     const postbody = { "Subject": `${subject}`, "Priority": `${priority}`} ;
 
     const params = {
