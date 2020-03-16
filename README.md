@@ -2,4 +2,4 @@
 
 ### Sequence diagram
 
-![Seq img](docs/img/cv-case-seq-1.png)
+![Seq img](docs/img/cv-case-seq-2.png)
