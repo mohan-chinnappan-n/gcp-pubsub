@@ -2,7 +2,8 @@
 
 ### Get the Access token
 
-![at](docs/img/at.png)
+![at](docs/img/at2.png)
+
 ```
 POST /services/oauth2/token HTTP/1.1
 Host: login.salesforce.com/ 
