@@ -45,7 +45,7 @@ function listenForMessages() {
     messageCount += 1;
 
     // CREATE Case here
-     cons cst = await createCase(message.data.subject, message.data.at, message.data.priority) 
+     cons cst = await createCase(message.data.subject, message.data.at, message.data.priority);
 
     // "Ack" (acknowledge receipt of) the message
     message.ack(message.data.);
