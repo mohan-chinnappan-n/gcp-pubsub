@@ -15,3 +15,4 @@ refresh_token=your token here
 
 ### References
 - [OAuth 2.0 Refresh Token Flow for Renewed Sessions](https://help.salesforce.com/articleView?id=remoteaccess_oauth_refresh_token_flow.htm&type=5)
+- [Refresh Tokens: When to Use Them and How They Interact with JWTs](https://auth0.com/blog/refresh-tokens-what-are-they-and-when-to-use-them/)
