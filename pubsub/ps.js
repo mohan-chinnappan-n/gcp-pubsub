@@ -1,5 +1,5 @@
 
-
+const fetch = require("node-fetch");
 // code to create case
 async function createCase(subject, at, priority) {
     const sobj = 'Case';
