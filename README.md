@@ -74,7 +74,9 @@ listenForMessages()
 - Option-2
 ![Seq img2](docs/img/seq-2.png)
 
-- [Slides](https://mohan-chinnappan-n2.github.io/2020/bulkapi2/bulkapi2.html#0)
+### Slides
+
+ [SALESFORCE BULK API 2.0 NPM](https://mohan-chinnappan-n2.github.io/2020/bulkapi2/bulkapi2.html#0)
 
 
 ```js
