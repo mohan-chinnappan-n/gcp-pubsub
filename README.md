@@ -6,8 +6,8 @@
 ![Seq img](docs/img/cv-case-seq-2.png)
 
 
+- Code to use GCP pubsub
 ```js
-
 const fetch = require("node-fetch");
 // code to create case
 async function createCase(subject, at, priority) {
