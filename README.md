@@ -1,8 +1,8 @@
-## Sample code for GCP pubsub
+# Sample code for GCP pubsub
 
-### Sequence diagram
+## Sequence diagram
 
-- Option-1
+### Option-1
 ![Seq img](docs/img/cv-case-seq-2.png)
 
 
@@ -71,7 +71,7 @@ function listenForMessages() {
 
 listenForMessages()
 ```
-- Option-2
+### Option-2
 ![Seq img2](docs/img/seq-2.png)
 
 ### Slides
