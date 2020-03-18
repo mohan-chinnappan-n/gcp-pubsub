@@ -1,0 +1,9 @@
+Title: COVID-19 Response
+User->HomePage:Lands
+User->Steps:Answers Questions and determine next step(s)
+Steps->Submit:Determine Case is neeed
+Submit->CaseDataStore:Store
+sfbulk2->CaseDataStore: Fetch Batch
+Note right of CaseDataStore: Spanner/BigTable/Firebase
+sfbulk2->SF:Create Batch of Cases
+Note right of SF: Batch of  Cases Created
