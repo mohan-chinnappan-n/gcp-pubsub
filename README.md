@@ -73,3 +73,97 @@ listenForMessages()
 ```
 - Option-2
 ![Seq img2](docs/img/seq-2.png)
+
+- [Slides](https://mohan-chinnappan-n2.github.io/2020/bulkapi2/bulkapi2.html#0)
+
+
+```js
+// filename:index.js
+// test file for sfbulk2js 
+// author: mohan chinnappan (mar-18-2020) 
+
+const sfb2 = require('sfbulk2js'); // the npm package we just installed
+const  fs = require('fs');
+const process = require('process');
+
+// read access-token from the env
+const AT = process.env.AT;
+
+const cji = {
+     instanceUrl: 'https://mohansun-fsc-21.my.salesforce.com',
+     apiVersion: 'v46.0',
+     accessToken: `${AT}`,
+     contentType: 'CSV',
+     lineEnding: 'LF'
+};
+
+const waitTimeMs = 5000;
+
+function sleep(ms) {
+  console.log('WAITING');
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+async function dataload(datafile) {
+ try {
+
+     console.log(`=== CREATE JOB === `);
+     const job = await sfb2.createJob(cji.instanceUrl, cji.apiVersion, cji.accessToken, 'insert', 'Case', cji.contentType,  cji.lineEnding );
+     console.log(job);
+     console.log(`jobId: ${job.id}`);
+
+     console.log(`=== JOB STATUS === `);
+     let jobStatus = await sfb2.getJobStatus(cji.instanceUrl, cji.apiVersion, cji.accessToken, 'ingest', job.id );
+     console.log(`=== JOB STATUS for job: ${job.id} ===`);
+     console.log(jobStatus);
+
+
+     console.log(`=== PUT DATA === `);
+
+     const fdata =  fs.readFileSync(datafile, 'utf8');
+     const putDataStatus  = await sfb2.putData(cji.instanceUrl, cji.accessToken, job.contentUrl, fdata );
+
+     console.log(`=== JOB STATUS === `);
+     jobStatus = await sfb2.getJobStatus(cji.instanceUrl, cji.apiVersion, cji.accessToken, 'ingest', job.id );
+     console.log(`=== JOB STATUS for job: ${job.id} ===`);
+     console.log(jobStatus);
+
+     console.log(`=== PATCH STATAE === `);
+     const patchDataStatus  = await sfb2.patchState(cji.instanceUrl, cji.apiVersion, cji.accessToken,  job.id, 'UploadComplete' );
+     console.log(patchDataStatus);
+
+     console.log(`=== JOB STATUS === `);
+     jobStatus = await sfb2.getJobStatus(cji.instanceUrl, cji.apiVersion, cji.accessToken, 'ingest', job.id );
+     console.log(`=== JOB STATUS for job: ${job.id} ===`);
+     console.log(jobStatus);
+
+     while (jobStatus.state === 'InProgress') { // wait for it 
+        await sleep(waitTimeMs);
+        jobStatus = await sfb2.getJobStatus(cji.instanceUrl, cji.apiVersion, cji.accessToken, 'ingest', job.id );
+        console.log(jobStatus);
+     }
+
+     console.log(`=== JOB Failure STATUS === `);
+     jobStatus = await sfb2.getJobFailureStatus(cji.instanceUrl, cji.apiVersion, cji.accessToken,  job.id );
+     console.log(`=== JOB Failure STATUS for job: ${job.id} ===`);
+     console.log(jobStatus);
+
+     console.log(`=== JOB getUnprocessedRecords STATUS === `);
+     jobStatus = await sfb2.getUnprocessedRecords(cji.instanceUrl, cji.apiVersion, cji.accessToken,  job.id );
+     console.log(`=== JOB getUnprocessedRecords STATUS for job: ${job.id} ===`);
+     console.log(jobStatus);
+
+
+
+} catch (err) {
+     console.log(`ERROR in dataload : ${err}`);
+   }
+
+}
+
+// here we run it
+dataload('input.csv');
+BACK
+
+
+```
